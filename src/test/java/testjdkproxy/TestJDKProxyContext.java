@@ -4,6 +4,7 @@ import com.interceptor.BulkHeadInterceptor;
 import com.interceptor.InterceptorEnhancer;
 import com.interceptor.RetryInterceptor;
 import com.interceptor.TimeoutInterceptor;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class TestJDKProxyContext {
@@ -18,6 +19,7 @@ public class TestJDKProxyContext {
         RetryInterceptor retryInterceptor = new RetryInterceptor();
         EchoService service = new EchoServiceImpl();
         EchoService object = (EchoService) new InterceptorEnhancer().enhanceJDKProxy(service, bulkHeadInterceptor, timeoutInterceptor, retryInterceptor);
-        System.out.println(object.echo("Hello,World"));
+        Object result = object.echo("Hello,World");
+        Assert.assertTrue("Hello,World".equals(result));
     }
 }
